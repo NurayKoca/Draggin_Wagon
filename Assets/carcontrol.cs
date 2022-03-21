@@ -27,14 +27,27 @@ public class carcontrol : MonoBehaviour
     private float MaximumDonusAcisi = 45f;
     [SerializeField]
     private List<Whell> wheels;
+    [SerializeField]
+    private int FrenGucu;
+    [SerializeField]
+    private int HizlanmaDerecesi;
+     public GameObject ArkaFar;
+    public Material[] ArkaFarMateryaller;
+    public GameObject[] OnFarIsiklari;
+    bool OnFarAcikmi;
     private float inputX, inputY;
-    
-    
+
+    public Vector3 centerOfMass;
+
     
     // Start is called before the first frame update
     void Start()
     {
+
+        OnFarAcikmi = false;
         
+      GetComponent<Rigidbody>().centerOfMass = centerOfMass;
+
     }
 
     private void LateUpdate()
@@ -50,6 +63,16 @@ public class carcontrol : MonoBehaviour
 
           Tekerlerindonusu();
           HareketYonu();
+
+          if(Input.GetKeyDown(KeyCode.Q)){
+
+            OnFarAcikmi = !OnFarAcikmi;
+
+            OnFarIsiklari[0].SetActive(OnFarAcikmi);
+            OnFarIsiklari[1].SetActive(OnFarAcikmi);
+
+
+          }
     }
 
     void HareketYonu()
@@ -62,7 +85,7 @@ public class carcontrol : MonoBehaviour
        
        foreach(var wheel in wheels){
 
-           wheel.collider.motorTorque = inputY * MaxHizlanma * 500 *Time.deltaTime;
+           wheel.collider.motorTorque = inputY * MaxHizlanma * HizlanmaDerecesi *Time.deltaTime;
        }
 
     }
@@ -101,14 +124,18 @@ public class carcontrol : MonoBehaviour
 
        if(Input.GetKeyDown(KeyCode.Space)){
 
+           ArkaFar.GetComponent<MeshRenderer>().material = ArkaFarMateryaller[1];
+           
            foreach(var wheel in wheels){
 
-               wheel.collider.brakeTorque = 10000;
+               wheel.collider.brakeTorque = FrenGucu;
            }
        }
 
        if(Input.GetKeyUp(KeyCode.Space)){
 
+            ArkaFar.GetComponent<MeshRenderer>().material = ArkaFarMateryaller[0];
+            
             foreach(var wheel in wheels){
 
                 wheel.collider.brakeTorque = 0;

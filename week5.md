@@ -1,0 +1,5 @@
+"I created a line of code using the Mathf.Lerp command to make the car's rotation movement smoother."
+"I edited this on the script side to prevent the car from rolling over on turns. I set the midpoint of the car as the center of mass. If I do this, the car will be more resistant to these transactions."
+"I added the feature that when the space key is pressed, when the new car brakes, the rear spotlights turn on."
+ "I added the feature of turning on the car's headlights when the Q key is pressed."
+ "I adjusted the car's center of mass and the road friction to prevent the car from skidding in turns and to give the car better handling."
